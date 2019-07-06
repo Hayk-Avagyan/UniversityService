@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Administration {
 
@@ -40,5 +41,36 @@ public class Administration {
     }
 
 
+}
 
+class CompareUniversity implements Comparator<University> {
+
+    @Override
+    public int compare(University o1, University o2) {
+        return o1.getCatalog().compareTo(o2.getCatalog());
+    }
+}
+
+class CompareName implements Comparator<University> {
+
+    @Override
+    public int compare(University o1, University o2) {
+        return o1.getFullName().compareTo(o2.getFullName());
+    }
+}
+
+class CompareCostOfEducation implements Comparator<University> {
+
+    @Override
+    public int compare(University o1, University o2) {
+        return o1.getCostOfEducation() - o2.getCostOfEducation();
+    }
+}
+
+class CompareTermOfStudy implements Comparator<University> {
+
+    @Override
+    public int compare(University o1, University o2) {
+        return o1.getTermOfStudy() - o2.getTermOfStudy();
+    }
 }

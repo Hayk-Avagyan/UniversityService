@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -11,7 +12,7 @@ public class Main {
     }
 
     private static void showMenu(Scanner scanner, Administration administration) {
-        System.out.println("1. Add new student.     2. Show universities list");
+        System.out.println("1. Add new student.     2. Show universities list.     3.Sorting");
         int a = scanner.nextInt();
         switch (a) {
             case 1:
@@ -22,10 +23,43 @@ public class Main {
                 applyToUniversity(scanner, administration);
                 administration.showUniversitiesCatalog();
                 break;
+            case 3:
+                if (administration.getUniversities().isEmpty()) {
+                    System.out.println("Your list is empty, so it makes no sense to sort the void :)");
+                } else {
+                   listSorting(scanner, administration);
+                }
                 default:
                     showMenu(scanner, administration);
+                    break;
         }
 
+    }
+
+    private static void listSorting(Scanner scanner, Administration administration) {
+        System.out.println("\n1.Sorting by university \n2.Sorting by Name \n3.Sorting by cost of education \n4.Sorting by term of study");
+        int index = scanner.nextInt();
+        switch (index) {
+            case 1:
+                CompareUniversity compareUniversity = new CompareUniversity();
+                Collections.sort(administration.getUniversities(), compareUniversity);
+                break;
+            case 2:
+                CompareName compareName = new CompareName();
+                Collections.sort(administration.getUniversities(), compareName);
+                break;
+            case 3:
+                CompareCostOfEducation compareCostOfEducation = new CompareCostOfEducation();
+                Collections.sort(administration.getUniversities(), compareCostOfEducation);
+                break;
+            case 4:
+                CompareTermOfStudy compareTermOfStudy = new CompareTermOfStudy();
+                Collections.sort(administration.getUniversities(), compareTermOfStudy);
+                break;
+            default:
+                showMenu(scanner, administration);
+                break;
+        }
     }
 
     private static void applyToUniversity(Scanner scanner, Administration administration) {
@@ -43,14 +77,18 @@ public class Main {
     private static void createNewStudent(Scanner scanner, Administration administration) {
         UniversitiesCatalog universitiesCatalog = chooseUniversityMenu(scanner);
 
-        System.out.println("input full name");
-        String fullName = scanner.nextLine();
+        System.out.println("Input full name");
+        String fullName = scanner.next();
 
-        System.out.println("input cost of education");
+        scanner.nextLine();
+
+        System.out.println("Input cost of education");
         int costOfEducation = scanner.nextInt();
 
-        System.out.println("input term of study");
+        System.out.println("Input term of study");
         int termOfStudy = scanner.nextInt();
+
+        System.out.println("Thanks, new student added to the list");
 
         University university = new University(universitiesCatalog, fullName, costOfEducation, termOfStudy);
 
@@ -61,7 +99,7 @@ public class Main {
 
     private static UniversitiesCatalog chooseUniversityMenu(Scanner scanner) {
         System.out.println("Choose university");
-        System.out.println("1. EPH   2. POLITEXNIK   3. BJSHKAKAN   4. TNTESAGITAKAN   5. MANKAVARJAKAN   6. KONSERVATORIA   7. AMERIKYAN   8. SLAVONAKAN");
+        System.out.println("1. EPH  \n2. POLITEXNIK   \n3. BJSHKAKAN   \n4. TNTESAGITAKAN   \n5. MANKAVARJAKAN   \n6. KONSERVATORIA   \n7. AMERIKYAN   \n8. SLAVONAKAN");
 
         int chooseValue = scanner.nextInt();
         UniversitiesCatalog universitiesCatalog = chooseUniversity(chooseValue);

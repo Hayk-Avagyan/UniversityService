@@ -1,3 +1,5 @@
+import java.util.Comparator;
+
 public class University {
 
     private UniversitiesCatalog catalog;
@@ -30,11 +32,6 @@ public class University {
 
     @Override
     public String toString() {
-        return "University{" +
-                "catalog=" + catalog.getName() +
-                ", fullName='" + fullName + '\'' +
-                ", costOfEducation=" + costOfEducation +
-                ", termOfStudy=" + termOfStudy +
-                '}';
+        return "\nUniversity = " + catalog.getName() + "\nFull Name = " + fullName + "\nCost Of Education = " + costOfEducation + "\nTerm Of Study = " + termOfStudy;
     }
 }
